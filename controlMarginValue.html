@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            background-color: aquamarine;
+            display: flex;
+            /* overflow-y: scroll; */
+        }
+        .box-1{
+            height: 300px;
+            background-color: yellow;
+            width: 50%;
+        }
+        .box-2{
+            height: 500px;
+            width: 50%;
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="deneme" style="height: 300px;"></div>
+    <div class="deneme" style="height: 300px;"></div>
+    <div class="deneme" style="height: 300px;"></div>
+    <div class="deneme" style="height: 300px;"></div>
+    <div class="deneme" style="height: 300px;"></div>
+    <div class="deneme" style="height: 300px;"></div>
+
+    <div class="box">
+        <div class="box-1"></div>
+        <div class="box-2"></div>
+    </div>
+    <div class="deneme" style="height: 300px;"></div>
+    <div class="deneme" style="height: 300px;"></div>
+    <div class="deneme" style="height: 300px;"></div>
+    <div class="deneme" style="height: 300px;"></div>
+    <div class="deneme" style="height: 300px;"></div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+
+        let mobileScreenSize        =       992
+
+            if(window.innerWidth > mobileScreenSize){
+                        
+            let boxOneLength        =       $('.box-1').height()
+            let boxSecondLength     =       $('.box-2').height()
+            let windowHeight        =       $(window).height() / 5;
+
+            let boxFarFromTop       =       $('.box').offset().top;
+            let controlSpace        =       0
+            if(boxOneLength >= boxSecondLength){
+                controlSpace        =       boxOneLength
+            }else{
+                controlSpace        =       boxSecondLength
+            }
+
+            let boxFarFromBottom    =       boxFarFromTop + controlSpace ;
+
+            $('.box').css('maxHeight',controlSpace+'px')
+
+            $(window).scroll(function(){
+                let windtopTop          =       window.pageYOffset;
+                let screenSizeControll  =       windtopTop + windowHeight
+                let newMarginValue      =       windowHeight
+                let maxMarginValue      =       Math.abs(boxOneLength - boxSecondLength)
+                if(screenSizeControll  >= boxFarFromTop && screenSizeControll <= boxFarFromBottom){
+                    newMarginValue      =       screenSizeControll - boxFarFromTop;
+                    if(boxOneLength >= boxSecondLength){
+                        if(newMarginValue < maxMarginValue){
+                            $('.box-2').css('marginTop',newMarginValue+'px');
+                        }
+                        else{
+                            $('.box-2').css('marginTop',maxMarginValue+'px');
+                        }
+                    }else{
+                        if(newMarginValue < maxMarginValue){
+                            $('.box-1').css('marginTop',newMarginValue+'px');
+                        }
+                        else{
+                            $('.box-1').css('marginTop',maxMarginValue+'px');
+                        }
+                    }
+                }
+            })
+        }
+
+    
+
+
+    </script>
+</body>
+</html>
